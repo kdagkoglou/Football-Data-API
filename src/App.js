@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import football_data from './apis/football_data.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    comps: []
+  }
+
+  componentDidMount() {
+    football_data.get(`/competitions`)
+      .then(res => {
+        const comps = res.data.competitions;
+        this.setState({ comps });
+        console.log(res);
+      })
+  }
+
+  render() {
+    return (
+      <div>
+        <h5>Football-data API</h5>
+        <ul>
+          { this.state.comps.map(comp => 
+            <li>{comp.name}</li>
+            )}
+        </ul>
+      </div>
+    )
+  }
 }
 
 export default App;
