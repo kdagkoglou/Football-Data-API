@@ -16,6 +16,10 @@ module.exports = {
         '2021': 'https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg'
       }
     }
+  },
+
+  CR: {
+    text: 'Football data provided by the Football-Data.org API'
   }
 
 };

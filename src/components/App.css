@@ -1,0 +1,14 @@
+/* UTILITIES */
+
+.alertTable {
+  margin: 10rem auto;
+  max-width: 500px;
+}
+
+ul {
+  margin-bottom: 0;
+}
+
+.nav-tabs {
+  border-bottom: unset;
+}
