@@ -2,3 +2,8 @@
   margin-top: -8px;
   border-bottom: 1px solid #eee;
 }
+
+nav  a.chosen,
+nav a:hover {
+  border-bottom: 1px solid #F14B31;
+}
