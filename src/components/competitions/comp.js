@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import football_data from '../../apis/football_data.js';
-// import SideNav from '../SideNav';
+import { Link, NavLink, Route } from 'react-router-dom';
+import football_data from '../../apis/football_data';
+import utility from '../../utilities/utility';
+import CompInfo from '../CompInfo';
+import CompTable from '../CompTable';
 import '../App.css';
 import './comp.css';
 
@@ -36,8 +38,9 @@ class Comp extends Component {
 
     await football_data.get(`/competitions/${id}/teams`)
       .then(res => {
+        let teams = res.data.teams.sort(utility.sortByName);
         this.setState({
-          teams: res.data.teams
+          teams: teams
         });
       })
   }
@@ -47,12 +50,15 @@ class Comp extends Component {
     return (
       <div>
 
-        <nav className="secondaryNav navbar navbar-light bg-light">
-          <ul className="nav">
+        <nav className="secondaryNav navbar navbar-light bg-gray text-right">
+          <div className="col-sm-2 text-sm-left text-center">
+            <h6 className="pl-2">{name}</h6>
+          </div>
+          <ul className="nav col-sm-10">
             {teams.map(team =>
               <li key={team.id} className="nav-item">
                 <small>
-                  <Link to={`/competitions/${id}/teams/${team.id}`} className="nav-link" title={team.name}><img src="" alt={team.id}/></Link>
+                  <Link to={`/competitions/${id}/teams/${team.id}`} className="nav-link" title={team.name}><img src={`/assets/images/competitions/${id}/normal/${team.id}.png`} alt={team.id}/></Link>
                 </small>
               </li>
             )}
@@ -61,9 +67,9 @@ class Comp extends Component {
 
         <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-2 d-none d-sm-block bg-light vh-100">
+            <div className="sideNav col-sm-2 d-none d-sm-block bg-light vh-100">
               <nav className="nav flex-column p-3">
-                <NavLink activeClassName="chosen" className="nav-link" to={`/competitions/${id}/info`}>Info</NavLink>
+                <NavLink activeClassName="chosen" className="nav-link" exact to={`/competitions/${id}`}>Info</NavLink>
                 <NavLink activeClassName="chosen" className="nav-link" to={`/competitions/${id}/table`}>Table</NavLink>
                 <NavLink activeClassName="chosen" className="nav-link" to={`/competitions/${id}/results`}>Results</NavLink>
                 <NavLink activeClassName="chosen" className="nav-link" to={`/competitions/${id}/fixtures`}>Fixtures</NavLink>
@@ -71,17 +77,17 @@ class Comp extends Component {
               </nav>
             </div>
             <div className="col-sm-10">
-              <div className="card text-center p-5 border-0">
-                <div className="card-header">
-                  {name}
-                </div>
-                <ul className="card-body list-unstyled">
-                  <li><span className="text-muted">1st match day: </span>{startDate}</li>
-                  <li><span className="text-muted">last match day: </span>{endDate}</li>
-                </ul>
-                <ul className="card-footer list-unstyled">
-                  <li><span className="text-muted">match day: </span>{currentMatchday}</li>
-                </ul>
+              <div className="container mt-5">
+                <Route 
+                  path={`/competitions/${id}`}
+                  exact
+                  children={<CompInfo name={name} currentMatchday={currentMatchday} startDate={startDate} endDate={endDate}/>}
+                />
+
+                <Route
+                  path={`/competitions/${id}/table`}
+                  children={<CompTable id={id} />} 
+                />
               </div>
             </div>
           </div>

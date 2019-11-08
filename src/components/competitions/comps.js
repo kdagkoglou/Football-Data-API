@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import football_data from '../../apis/football_data.js';
-import texts from '../../lib/texts.js';
 
 class CompsList extends Component {
   
@@ -35,8 +34,8 @@ class CompsList extends Component {
         {!isLoading && (
           <div className="d-flex flex-wrap align-items-stretch justify-content-center mb-3">
             {comps.map(comp =>
-              <div key={comp.id} className="card p-2" style={{ width: '15rem', margin: '0.5rem' }}>
-                <img src={texts.IMGS.comps.values[comp.id]} className="card-img-top" style={{ height: '14rem' }} alt={comp.name} />
+              <div key={comp.id} className="card p-2 shadow grow" style={{ width: '15rem', margin: '0.5rem' }}>
+                <img src={`/assets/images/competitions/logos/normal/${comp.id}.png`} className="card-img-top" style={{ height: '14rem' }} alt={comp.name} />
                 <h6 className="card-header mt-5">
                   {comp.name}
                 </h6>

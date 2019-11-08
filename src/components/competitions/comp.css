@@ -1,9 +1,18 @@
 .secondaryNav {
   margin-top: -8px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #bbb;
 }
 
-nav  a.chosen,
-nav a:hover {
-  border-bottom: 1px solid #F14B31;
+.secondaryNav .nav-link {
+  padding: 0.5rem 0.5rem;
+}
+
+.secondaryNav img,
+.compTable img {
+  height: 1.5rem; 
+}
+
+.sideNav nav  a.chosen,
+.sideNav nav a:hover {
+  border-bottom: 1px solid #575757;
 }
